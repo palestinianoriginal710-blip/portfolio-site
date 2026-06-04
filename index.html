@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>معرض الأعمال</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0B0E14;
+	  --bg2:#151921;
+	  --bg3:#1D232D;
+	  --text:#E0E6ED;
+	  --muted:#94A3B8;
+	  --accent:#00D4FF;
+	  --accent2:#0072B5;
+	  --border:#2D3748;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden;direction:rtl}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(10,10,10,0.95),transparent)}
+.nav-logo{font-family:'Cairo',sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:1px;color:var(--accent)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;letter-spacing:1px;transition:color 0.3s}
+.nav-links a:hover{color:var(--accent)}
+
+/* HERO */
+#hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;padding:2rem}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(140,90,50,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 20%,rgba(100,70,40,0.06) 0%,transparent 50%)}
+.hero-eyebrow{font-size:0.85rem;letter-spacing:2px;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s 0.3s forwards}
+h1{font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(2.2rem,5.5vw,5rem);font-weight:400;line-height:2.2;opacity:0;animation:fadeUp 1s 0.5s forwards}
+h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{margin-top:1.5rem;color:var(--muted);font-size:1rem;max-width:460px;opacity:0;animation:fadeUp 1s 0.7s forwards}
+.hero-cta{margin-top:3rem;display:flex;gap:1.2rem;opacity:0;animation:fadeUp 1s 0.9s forwards}
+.btn{padding:0.75rem 2rem;font-size:0.9rem;text-decoration:none;transition:all 0.3s;cursor:pointer;border:none;font-family:'Tajawal',sans-serif}
+.btn-outline{border:1px solid var(--accent2);color:var(--accent);background:transparent}
+.btn-outline:hover{background:var(--accent2);color:var(--bg)}
+.btn-ghost{color:var(--muted);background:transparent;border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--muted);color:var(--text)}
+.scroll-line{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.8rem;opacity:0;animation:fadeUp 1s 1.2s forwards}
+.scroll-line::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,var(--accent2),transparent);animation:scrollPulse 2s ease-in-out infinite}
+
+/* SECTIONS */
+section{padding:7rem 3rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-size:0.8rem;letter-spacing:2px;color:var(--accent);margin-bottom:1rem;display:block}
+.section-title{font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1.3;margin-bottom:3rem}
+.divider{width:40px;height:1px;background:var(--accent2);margin:1.5rem 0}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-img{aspect-ratio:3/4;background:var(--bg3);border:1px solid var(--border);position:relative;overflow:hidden}
+.about-img-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.85rem}
+.about-img::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(196,168,130,0.04),transparent)}
+.about-text p{color:var(--muted);margin-bottom:1.2rem;font-size:0.95rem}
+.about-text p strong{color:var(--text);font-weight:500}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem}
+.stat{border-top:1px solid var(--border);padding-top:1rem}
+.stat-num{font-family:'Cairo',sans-serif;font-size:2rem;color:var(--accent)}
+.stat-label{font-size:0.82rem;color:var(--muted);margin-top:0.2rem}
+
+/* WHAT I DO */
+#services{background:var(--bg)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
+.service-item{background:var(--bg);padding:2.5rem 1.8rem;transition:background 0.3s;cursor:default}
+.service-item:hover{background:var(--bg2)}
+.service-icon{font-size:1.5rem;margin-bottom:1.2rem;color:var(--accent)}
+.service-name{font-family:'Cairo',sans-serif;font-size:1.3rem;margin-bottom:0.6rem}
+.service-desc{font-size:0.85rem;color:var(--muted);line-height:1.7}
+
+/* WORK */
+#work{background:var(--bg2)}
+.carousel-wrapper{display:flex;flex-direction:column;align-items:center}
+.work-carousel-container{position:relative;width:100%;max-width:360px;aspect-ratio:9/16;overflow:hidden;border-radius:16px;border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,212,255,0.1)}
+.work-grid{display:flex;flex-direction:column;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);height:100%}
+.work-item{position:relative;overflow:hidden;flex-shrink:0;width:100%;height:100%;background:var(--bg3);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.work-item video{width:100%;height:100%;object-fit:cover;display:block}
+.work-item img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:opacity 0.3s;z-index:1}
+.work-item.playing img{opacity:0}
+.work-item .play-btn-overlay{position:absolute;z-index:2;pointer-events:none;width:52px;height:52px;border:1px solid rgba(196,168,130,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(10,10,10,0.5);transition:all 0.3s}
+.work-item.playing .play-btn-overlay{opacity:0}
+.work-overlay{z-index:3}
+.work-item.tall{aspect-ratio:auto}
+.work-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:0.82rem;color:var(--border);transition:all 0.4s}
+.work-overlay{position:absolute;inset:0;background:rgba(11,14,20,0.92);display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;opacity:0;transition:opacity 0.4s}
+.work-item:hover .work-overlay{opacity:1}
+.work-item:hover .work-placeholder{color:var(--muted)}
+.work-cat{font-size:0.75rem;color:var(--accent);margin-bottom:0.5rem;letter-spacing:1px}
+.work-ttl{font-family:'Cairo',sans-serif;font-size:1.3rem;color:var(--text)}
+.carousel-controls{display:flex;justify-content:center;gap:2rem;margin-top:2.5rem;align-items:center}
+.carousel-btn{width:50px;height:50px;border:2px solid var(--accent);background:transparent;color:var(--accent);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;font-size:1.3rem;font-weight:bold}
+.carousel-btn:hover:not(:disabled){background:var(--accent);color:var(--bg)}
+.carousel-btn:disabled{opacity:0.3;cursor:not-allowed;border-color:var(--muted)}
+.carousel-counter{color:var(--muted);font-size:0.95rem;min-width:80px;text-align:center;font-weight:500}
+
+/* VIDEOS */
+#videos{background:var(--bg)}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.video-card{background:var(--bg2);border:1px solid var(--border);overflow:hidden;transition:border-color 0.3s}
+.video-card:hover{border-color:var(--accent2)}
+.video-thumb{position:relative;background:#000;width:100%;cursor:pointer}
+.video-thumb video{width:100%;height:auto;display:block;object-fit:contain;max-height:70vh}
+.video-thumb img{width:100%;height:auto;display:block;transition:opacity 0.3s}
+.video-thumb.playing img{opacity:0}
+.video-thumb.playing video{opacity:1}
+.video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.play-btn{width:52px;height:52px;border:1px solid rgba(196,168,130,0.5);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;background:rgba(10,10,10,0.5)}
+.play-btn svg{width:16px;height:16px;fill:var(--accent);margin-right:3px}
+.video-card:hover .play-btn{background:var(--accent2);border-color:var(--accent2)}
+.video-card:hover .play-btn svg{fill:var(--bg)}
+.video-info{padding:1.2rem 1.5rem;text-align:right}
+.video-tag{font-size:0.75rem;color:var(--accent);margin-bottom:0.4rem}
+.video-title{font-family:'Cairo',sans-serif;font-size:1.15rem;margin-bottom:0.4rem}
+.video-meta{font-size:0.82rem;color:var(--muted)}
+.video-gradient{position:absolute;inset:0;background:linear-gradient(135deg,rgba(140,90,50,0.06),rgba(10,10,10,0.3))}
+.vp1{background:linear-gradient(135deg,#1a1208,#0d1a15)}
+.vp2{background:linear-gradient(135deg,#150d1a,#0a0d1a)}
+.vp3{background:linear-gradient(135deg,#1a1008,#1a0808)}
+
+/* CONTACT */
+#contact{background:var(--bg2);text-align:center}
+.contact-sub{color:var(--muted);max-width:450px;margin:0 auto 3rem;font-size:0.95rem}
+.contact-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.contact-link{color:var(--muted);text-decoration:none;font-size:0.88rem;transition:color 0.3s;padding:0.5rem 0;border-bottom:1px solid transparent}
+.contact-link:hover{color:var(--accent);border-bottom-color:var(--accent2)}
+.contact-email{font-family:'Cairo',sans-serif;font-size:2rem;color:var(--accent);text-decoration:none;display:block;margin-bottom:3rem;transition:opacity 0.3s;direction:ltr}
+.contact-email:hover{opacity:0.7}
+
+/* FOOTER */
+footer{background:var(--bg);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border)}
+.footer-copy{font-size:0.82rem;color:var(--muted)}
+.footer-logo{font-family:'Cairo',sans-serif;color:var(--accent);font-size:1.1rem}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">يوسُف سَحْلوب</span>
+  <ul class="nav-links">
+    <li><a href="#about">عني</a></li>
+    <li><a href="#services">أعمالي</a></li>
+    <li><a href="#videos">أفلامي</a></li>
+    <li><a href="#contact">تواصل</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-eyebrow">البورتفوليو</p>
+  <h1>قليلٌ يَبْقَى فيَنفع<br/><em>خيرٌ مِنْ كثيرٍ يُلقى فيُرفع</em></h1>
+  <p class="hero-sub">مونتير · صانع محتوى — أصنع أثراً لا يُمحى</p>
+  <div class="hero-cta">
+    <a href="#work" class="btn btn-outline">شاهد الأعمال</a>
+    <a href="#contact" class="btn btn-ghost">تواصل معي</a>
+  </div>
+  <div class="scroll-line">تمرير</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://res.cloudinary.com/dc6utk5ga/image/upload/f_auto,q_auto/Picsart_26-01-28_04-18-51-208_rcvwir" style="width:100%;height:100%;object-fit:cover;object-position:center top"/>
+      </div>
+      <div class="about-text reveal">
+        <span class="section-label">عني</span>
+        <h2 class="section-title">كل لقطة…<br/><em>يجب أن توصل شعوراً مناسباً</em></h2>
+        <div class="divider"></div>
+        <p>أنا يوسف، <strong>مونتير وصانع قصص بصرية</strong> من مصر. أؤمن أن المونتاج ليس مجرد قطع وانتقال… بل إيقاع، إحساس، ورسالة تُرى قبل أن تُقال.</p>
+        <p>أصنع فيديوهات تجمع بين <strong>السينمائية والعاطفة</strong>، لتجعل المشاهد يعيش اللحظة… لا يراها فقط.</p>
+        <div class="stats">
+          <div class="stat"><div class="stat-num">+١</div><div class="stat-label">سنة من الإبداع</div></div>
+          <div class="stat"><div class="stat-num">+٩</div><div class="stat-label">مشروع منجز</div></div>
+          <div class="stat"><div class="stat-num">+٣</div><div class="stat-label">عميل راضٍ</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I DO -->
+<section id="services">
+  <div class="container">
+    <span class="section-label reveal">ماذا أقدّم</span>
+    <h2 class="section-title reveal">التخصصات<br/><em>والحِرَف</em></h2>
+    <div class="services-grid reveal">
+      <div class="service-item">
+        <div class="service-icon">▶</div>
+        <div class="service-name">الفيديو والإخراج</div>
+        <div class="service-desc">أفلام قصيرة، وثائقية، وإعلانية — بعين سينمائية ترى ما لا تراه الكاميرا وحدها.</div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">◎</div>
+        <div class="service-name">المونتاج</div>
+        <div class="service-desc">إيقاع، توقيت، وإحساس — أحوّل المشاهد الخام إلى قصة تُعاش لا تُشاهد.</div>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">✐</div>
+        <div class="service-name">صناعة المحتوى والكتابة</div>
+        <div class="service-desc">أفكار تُكتب بعناية وتُقدَّم بأسلوب يصل قبل أن يُقرأ.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="container">
+    <span class="section-label reveal">أعمال مختارة</span>
+    <h2 class="section-title reveal">المشاريع<br/><em>المميزة</em></h2>
+    <div class="carousel-wrapper reveal">
+      <div class="work-carousel-container">
+        <div class="work-grid" id="workCarousel">
+          <div class="work-item" onclick="togglePlay(this)">
+            <img src="https://res.cloudinary.com/dc6utk5ga/image/upload/v1780607611/5.4_aabs9q.jpg"/>
+            <video loop preload="none" src="https://res.cloudinary.com/dc6utk5ga/video/upload/v1780606802/Showreel_-_5_iqyvvd.mp4"></video>
+            <div class="play-btn-overlay"><div class="play-btn"><svg viewBox="0 0 16 16" style="width:16px;height:16px;fill:var(--accent);margin-right:3px"><polygon points="5,2 13,8 5,14"/></svg></div></div>
+            <div class="work-overlay"><div class="work-cat">مونتاج</div><div class="work-ttl">Documentary Style</div></div>
+          </div>
+          <div class="work-item" onclick="togglePlay(this)">
+            <img src="https://res.cloudinary.com/dc6utk5ga/image/upload/v1780606952/1.1_naaouh.jpg"/>
+            <video loop preload="none" src="https://res.cloudinary.com/dc6utk5ga/video/upload/v1780604426/Showreel_-_1_1_zajftu.mp4"></video>
+            <div class="play-btn-overlay"><div class="play-btn"><svg viewBox="0 0 16 16" style="width:16px;height:16px;fill:var(--accent);margin-right:3px"><polygon points="5,2 13,8 5,14"/></svg></div></div>
+            <div class="work-overlay"><div class="work-cat">مونتاج</div><div class="work-ttl">Minimal Style</div></div>
+          </div>
+          <div class="work-item" onclick="togglePlay(this)">
+            <img src="https://res.cloudinary.com/dc6utk5ga/image/upload/v1780607112/2.1_yafjfo.jpg"/>
+            <video loop preload="none" src="https://res.cloudinary.com/dc6utk5ga/video/upload/v1780605117/Showreel_-_2_lckzef.mp4"></video>
+            <div class="play-btn-overlay"><div class="play-btn"><svg viewBox="0 0 16 16" style="width:16px;height:16px;fill:var(--accent);margin-right:3px"><polygon points="5,2 13,8 5,14"/></svg></div></div>
+            <div class="work-overlay"><div class="work-cat">تصوير + مونتاج</div><div class="work-ttl">Documentary Style</div></div>
+          </div>
+          <div class="work-item" onclick="togglePlay(this)">
+            <img src="https://res.cloudinary.com/dc6utk5ga/image/upload/v1780607535/3.1_vmnhm7.jpg"/>
+            <video loop preload="none" src="https://res.cloudinary.com/dc6utk5ga/video/upload/v1780606008/Showreel_-_3_hqzlae.mp4"></video>
+            <div class="play-btn-overlay"><div class="play-btn"><svg viewBox="0 0 16 16" style="width:16px;height:16px;fill:var(--accent);margin-right:3px"><polygon points="5,2 13,8 5,14"/></svg></div></div>
+            <div class="work-overlay"><div class="work-cat">تصوير + مونتاج</div><div class="work-ttl">Documentary Style</div></div>
+          </div>
+          <div class="work-item" onclick="togglePlay(this)">
+            <img src="https://res.cloudinary.com/dc6utk5ga/image/upload/v1780607571/4.3_nlu5mr.jpg"/>
+            <video loop preload="none" src="https://res.cloudinary.com/dc6utk5ga/video/upload/v1780606255/Showreel_-_4_jb6am3.mp4"></video>
+            <div class="play-btn-overlay"><div class="play-btn"><svg viewBox="0 0 16 16" style="width:16px;height:16px;fill:var(--accent);margin-right:3px"><polygon points="5,2 13,8 5,14"/></svg></div></div>
+            <div class="work-overlay"><div class="work-cat">تصوير + مونتاج</div><div class="work-ttl">Documentary Style</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn" onclick="prevSlide()">↑</button>
+        <span class="carousel-counter"><span id="currentSlide">1</span> / <span id="totalSlides">5</span></span>
+        <button class="carousel-btn" id="nextBtn" onclick="nextSlide()">↓</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="container">
+    <span class="section-label reveal">على الشاشة</span>
+    <h2 class="section-title reveal">أعمال<br/><em>الفيديو والسينما</em></h2>
+    <div class="video-grid reveal">
+      <div class="video-card">
+        <div class="video-thumb" onclick="toggleMainVideo(this)">
+          <img src="https://res.cloudinary.com/dc6utk5ga/image/upload/v1780608555/1.1_nxa7mi.jpg"/>
+          <video style="position:absolute;inset:0;opacity:0" preload="none" loop>
+            <source src="https://res.cloudinary.com/dc6utk5ga/video/upload/v1780257820/first-_short_film_qt3n21.mp4" type="video/mp4"/>
+          </video>
+          <div class="video-play" style="pointer-events:none">
+            <div class="play-btn">
+              <svg viewBox="0 0 16 16"><polygon points="5,2 13,8 5,14"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-tag">فيلم قصير</div>
+          <div class="video-title">الأحلام تموت، ولكنها تظل كابوسًا!</div>
+          <div class="video-meta">١١ ثانية · ١ مايو ٢٠٢٦</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" onclick="toggleMainVideo(this)">
+          <img src="https://res.cloudinary.com/dc6utk5ga/image/upload/v1780608573/2.1_vrlxsh.jpg"/>
+          <video style="position:absolute;inset:0;opacity:0" preload="none" loop>
+            <source src="https://res.cloudinary.com/dc6utk5ga/video/upload/v1780258281/new_gpv5dl.mp4" type="video/mp4"/>
+          </video>
+          <div class="video-play" style="pointer-events:none">
+            <div class="play-btn">
+              <svg viewBox="0 0 16 16"><polygon points="5,2 13,8 5,14"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-tag">فيلم قصير</div>
+          <div class="video-title">التشتت في البدايات!</div>
+          <div class="video-meta">٢٦ ثانية · ١٦ فبراير ٢٠٢٦</div>
+        </div>
+      </div>
+
+      <div class="video-card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:260px;border-style:dashed;opacity:0.6;text-align:center;padding:2.5rem 1.5rem;gap:1rem">
+        <div style="font-size:2rem;color:var(--accent2)">✦</div>
+        <div style="font-family:'Cairo',sans-serif;font-size:1.2rem;color:var(--accent)">المزيد قادم…</div>
+        <div style="font-size:0.85rem;color:var(--muted);line-height:1.8">الأثر ممتد<br/>وبالله التوفيق</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label">تواصل معي</span>
+    <h2 class="section-title reveal">لنصنع شيئاً<br/><em>يستحق أن يُرى</em></h2>
+    <p class="contact-sub reveal">أرحب بالتعاون الإبداعي والمشاريع والمحادثات. لا تتردد في التواصل.</p>
+    <a href="mailto:joees171@gmail.com" class="contact-email reveal">joees171@gmail.com</a>
+    <div class="contact-links reveal">
+      <a href="https://www.instagram.com/sahl0_0ub?igsh=MXNvaTRidTNjbnViZg==" class="contact-link" target="_blank">إنستغرام</a>
+      <a href="https://www.tiktok.com/@sahl0ub" class="contact-link" target="_blank">تيك توك</a>
+      <a href="https://www.linkedin.com/in/yusuf-sahloub-70187330b" class="contact-link" target="_blank">لينكدإن</a>
+      <a href="https://www.youtube.com/@sahl0ub.y77" class="contact-link" target="_blank">يوتيوب</a>
+      <a href="https://x.com/sahl0_0ub" class="contact-link" target="_blank">تويتر</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">يوسُف سَحْلوب</span>
+  <span class="footer-copy">© ٢٠٢٤ — جميع الحقوق محفوظة</span>
+</footer>
+
+<script>
+let currentSlide = 0;
+const carousel = document.getElementById('workCarousel');
+const items = carousel.querySelectorAll('.work-item');
+const totalSlides = items.length;
+
+function stopAllCarouselVideos() {
+  items.forEach(item => {
+    const v = item.querySelector('video');
+    if (v) { v.pause(); }
+    item.classList.remove('playing');
+  });
+}
+
+function updateCarousel() {
+  const offset = -currentSlide * 100;
+  carousel.style.transform = `translateY(${offset}%)`;
+  document.getElementById('currentSlide').textContent = currentSlide + 1;
+  document.getElementById('prevBtn').disabled = currentSlide === 0;
+  document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+}
+
+function nextSlide() {
+  if (currentSlide < totalSlides - 1) {
+    stopAllCarouselVideos();
+    currentSlide++;
+    updateCarousel();
+  }
+}
+
+function prevSlide() {
+  if (currentSlide > 0) {
+    stopAllCarouselVideos();
+    currentSlide--;
+    updateCarousel();
+  }
+}
+
+function togglePlay(item) {
+  const video = item.querySelector('video');
+  const allVideos = document.querySelectorAll('.work-item video');
+  
+  allVideos.forEach(v => {
+    if (v !== video) {
+      v.pause();
+      v.closest('.work-item').classList.remove('playing');
+    }
+  });
+
+  if (video.paused) {
+    video.play();
+    item.classList.add('playing');
+  } else {
+    video.pause();
+    item.classList.remove('playing');
+  }
+}
+
+function toggleMainVideo(item) {
+  // pause all other main videos first
+  document.querySelectorAll('#videos .video-thumb').forEach(thumb => {
+    if (thumb !== item) {
+      const ov = thumb.querySelector('video');
+      const oi = thumb.querySelector('img');
+      const oc = thumb.querySelector('.video-play');
+      if (ov) { ov.pause(); ov.style.opacity = '0'; }
+      if (oi) oi.style.opacity = '1';
+      if (oc) oc.style.opacity = '1';
+      thumb.classList.remove('playing');
+    }
+  });
+  const video = item.querySelector('video');
+  const img = item.querySelector('img');
+  const icon = item.querySelector('.video-play');
+  
+  if (video.paused) {
+    video.play();
+    video.style.opacity = '1';
+    img.style.opacity = '0';
+    icon.style.opacity = '0';
+    item.classList.add('playing');
+  } else {
+    video.pause();
+    video.style.opacity = '0';
+    img.style.opacity = '1';
+    icon.style.opacity = '1';
+    item.classList.remove('playing');
+  }
+}
+
+// pause carousel videos when #work section scrolls out of view
+const workSection = document.getElementById('work');
+const workVisibilityObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) {
+      items.forEach(item => {
+        const v = item.querySelector('video');
+        if (v) v.pause();
+        item.classList.remove('playing');
+      });
+    }
+  });
+}, { threshold: 0.05 });
+workVisibilityObserver.observe(workSection);
+
+document.getElementById('totalSlides').textContent = totalSlides;
+updateCarousel();
+
+const obs = new IntersectionObserver(els => {
+  els.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') })
+}, {threshold: 0.15})
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el))
+</script>
+</body>
+</html>
